@@ -32,10 +32,11 @@
 </header>
 <section class="hero-wrap">
 <div class="hero">
-<div class="hero-bg active" style="background-image:url('hero1.jpg')"></div>
-<div class="hero-bg" style="background-image:url('hero2.jpg')"></div>
-<div class="hero-bg" style="background-image:url('hero3.jpg')"></div>
-<div class="hero-bg" style="background-image:url('hero4.jpg')"></div>
+<div class="hero-bg active" data-show-content="false" style="background-image:url('AIM1.png')"></div>
+<div class="hero-bg" data-show-content="true" style="background-image:url('hero1.jpg')"></div>
+<div class="hero-bg" data-show-content="true" style="background-image:url('hero2.jpg')"></div>
+<div class="hero-bg" data-show-content="true" style="background-image:url('hero3.jpg')"></div>
+<div class="hero-bg" data-show-content="true" style="background-image:url('hero4.jpg')"></div>
 <div class="hero-content">
 <div class="hero-icon">&#9733;</div>
 <h2>Building Solutions That Matter</h2>
@@ -45,10 +46,30 @@
 </div>
 </section>
 <script>
-var bgIndex = 0, bgItems = document.querySelectorAll('.hero-bg');
-setInterval(function(){ bgItems[bgIndex].classList.remove('active'); bgIndex = (bgIndex + 1) % bgItems.length; bgItems[bgIndex].classList.add('active'); }, 4000);
+var bgIndex = 0;
+var bgItems = document.querySelectorAll('.hero-bg');
+var heroContent = document.querySelector('.hero-content');
+
+function updateHeroContent() {
+  if (!heroContent) {
+    return;
+  }
+
+  var activeBg = bgItems[bgIndex];
+  var showContent = !activeBg || activeBg.getAttribute('data-show-content') !== 'false';
+  heroContent.classList.toggle('is-hidden', !showContent);
+}
+
+updateHeroContent();
+
+setInterval(function () {
+  bgItems[bgIndex].classList.remove('active');
+  bgIndex = (bgIndex + 1) % bgItems.length;
+  bgItems[bgIndex].classList.add('active');
+  updateHeroContent();
+}, 4000);
  </script>
-  <section class="section" style="text-align:center;">
+  <section class="section section-centered">
   <h2>Our Technology Stack</h2>
 <div class="tech-grid">
 <div class="tech-item">
@@ -77,7 +98,7 @@ setInterval(function(){ bgItems[bgIndex].classList.remove('active'); bgIndex = (
 </div>
 </div>
 </section>
-<hr style="border:none;border-top:2px solid #e94560;width:120px;margin:0 auto;">
+<hr class="section-divider-accent">
 <section class="section">
 <h2>Our Expertise</h2>
 <div class="grid">
